@@ -1,4 +1,3 @@
-
 module vending_mealy(
     input  wire       clk,
     input  wire       rst,    
@@ -67,3 +66,4 @@ module vending_mealy(
     end
 
 endmodule
+

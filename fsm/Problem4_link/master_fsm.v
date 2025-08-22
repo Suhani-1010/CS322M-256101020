@@ -1,4 +1,3 @@
-
 module master_fsm(
     input  wire clk,
     input  wire rst,
@@ -62,3 +61,4 @@ module master_fsm(
         end
     end
 endmodule
+

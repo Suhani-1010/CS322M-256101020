@@ -1,0 +1,348 @@
+$date
+	Fri Aug 22 16:41:36 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ns
+$end
+$scope module tb_vending_mealy $end
+$var wire 1 ! chg5 $end
+$var wire 1 " dispense $end
+$var reg 1 # clk $end
+$var reg 2 $ coin [1:0] $end
+$var reg 1 % rst $end
+$scope module dut $end
+$var wire 1 ! chg5 $end
+$var wire 1 & clk $end
+$var wire 2 ' coin [1:0] $end
+$var wire 5 ( coin_val [4:0] $end
+$var wire 1 " dispense $end
+$var wire 6 ) new_total [5:0] $end
+$var wire 1 * rst $end
+$var reg 2 + next_state [1:0] $end
+$var reg 2 , state [1:0] $end
+$var reg 5 - total_val [4:0] $end
+$upscope $end
+$scope task idle $end
+$upscope $end
+$scope task put_coin $end
+$var reg 2 . c [1:0] $end
+$var reg 1 / exp_chg $end
+$var reg 1 0 exp_disp $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x0
+x/
+bx .
+bx -
+bx ,
+bx +
+1*
+bx )
+b0 (
+b0 '
+0&
+1%
+b0 $
+0#
+0"
+0!
+$end
+#5
+b0 +
+b0 -
+b0 )
+b0 ,
+1#
+1&
+#10
+0#
+0&
+#15
+0/
+00
+b10 .
+0%
+0*
+1#
+1&
+#20
+b10 +
+b1010 )
+b1010 (
+b10 $
+b10 '
+0#
+0&
+#25
+1"
+b0 +
+b1010 -
+b10100 )
+b10 ,
+1#
+1&
+#30
+0"
+b10 +
+b1010 )
+b0 (
+10
+b0 $
+b0 '
+0#
+0&
+#35
+1#
+1&
+#40
+1"
+b0 +
+b10100 )
+b1010 (
+b10 $
+b10 '
+0#
+0&
+#45
+0"
+b10 +
+b0 -
+b1010 )
+b0 ,
+1#
+1&
+#50
+b0 +
+b0 )
+b0 (
+b0 $
+b0 '
+0#
+0&
+#55
+1#
+1&
+#60
+0#
+0&
+#65
+00
+b1 .
+1#
+1&
+#70
+b1 +
+b101 )
+b101 (
+b1 $
+b1 '
+0#
+0&
+#75
+b10 +
+b101 -
+b1010 )
+b1 ,
+1#
+1&
+#80
+b1 +
+b101 )
+b0 (
+b0 $
+b0 '
+0#
+0&
+#85
+1#
+1&
+#90
+b10 +
+b1010 )
+b101 (
+b1 $
+b1 '
+0#
+0&
+#95
+b11 +
+b1010 -
+b1111 )
+b10 ,
+1#
+1&
+#100
+b10 +
+b1010 )
+b0 (
+10
+b10 .
+b0 $
+b0 '
+0#
+0&
+#105
+1#
+1&
+#110
+1"
+b0 +
+b10100 )
+b1010 (
+b10 $
+b10 '
+0#
+0&
+#115
+0"
+b10 +
+b0 -
+b1010 )
+b0 ,
+1#
+1&
+#120
+b0 +
+b0 )
+b0 (
+b0 $
+b0 '
+0#
+0&
+#125
+1#
+1&
+#130
+0#
+0&
+#135
+00
+1#
+1&
+#140
+b10 +
+b1010 )
+b1010 (
+b10 $
+b10 '
+0#
+0&
+#145
+1"
+b0 +
+b1010 -
+b10100 )
+b10 ,
+1#
+1&
+#150
+0"
+b10 +
+b1010 )
+b0 (
+b1 .
+b0 $
+b0 '
+0#
+0&
+#155
+1#
+1&
+#160
+b11 +
+b1111 )
+b101 (
+b1 $
+b1 '
+0#
+0&
+#165
+1"
+b0 +
+b1111 -
+b10100 )
+b11 ,
+1#
+1&
+#170
+0"
+b11 +
+b1111 )
+b0 (
+1/
+10
+b10 .
+b0 $
+b0 '
+0#
+0&
+#175
+1#
+1&
+#180
+1"
+1!
+b0 +
+b11001 )
+b1010 (
+b10 $
+b10 '
+0#
+0&
+#185
+0"
+0!
+b10 +
+b0 -
+b1010 )
+b0 ,
+1#
+1&
+#190
+b0 +
+b0 )
+b0 (
+b0 $
+b0 '
+0#
+0&
+#195
+1#
+1&
+#200
+0#
+0&
+#205
+0/
+00
+b11 .
+1#
+1&
+#210
+b11 $
+b11 '
+0#
+0&
+#215
+1#
+1&
+#220
+b0 $
+b0 '
+0#
+0&
+#225
+1#
+1&
+#230
+0#
+0&
+#235
+1#
+1&

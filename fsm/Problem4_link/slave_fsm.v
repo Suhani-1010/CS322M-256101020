@@ -1,4 +1,3 @@
-
 module slave_fsm(
     input  wire clk,
     input  wire rst,
@@ -55,3 +54,4 @@ module slave_fsm(
         end
     end
 endmodule
+

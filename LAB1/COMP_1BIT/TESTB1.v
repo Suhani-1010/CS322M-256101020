@@ -1,4 +1,3 @@
-// tb_comparator_1bit.v
 `timescale 1ns/1ps
 module test;
 

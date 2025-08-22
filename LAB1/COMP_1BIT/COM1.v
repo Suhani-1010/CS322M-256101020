@@ -3,7 +3,7 @@ module comp1 (
     input B,
     output o1,  
     output o2,  
-    output o3   
+    output o3, 
 );
 
 assign o1 = A & ~B;     

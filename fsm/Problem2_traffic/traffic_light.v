@@ -1,33 +1,27 @@
-// traffic_light.v
-// Moore FSM: NS/EW traffic lights with 5/2/5/2 tick durations
-
 module traffic_light(
     input  wire clk,
-    input  wire rst,   // sync active-high
-    input  wire tick,  // 1-cycle pulse (slow time base)
+    input  wire rst,   
+    input  wire tick,  
     output reg  ns_g, ns_y, ns_r,
     output reg  ew_g, ew_y, ew_r
 );
 
-    // States
     localparam [1:0]
         S_NS_G = 2'd0,
         S_NS_Y = 2'd1,
         S_EW_G = 2'd2,
         S_EW_Y = 2'd3;
 
-    // Tick durations
     localparam integer DUR_NS_G = 5;
     localparam integer DUR_NS_Y = 2;
     localparam integer DUR_EW_G = 5;
     localparam integer DUR_EW_Y = 2;
 
     reg [1:0] state, next_state;
-    reg [2:0] tick_count; // enough to count up to 5
-
-    // Next-state + tick counter
+    reg [2:0] tick_count; 
+    
     always @* begin
-        next_state = state; // default stay
+        next_state = state;
         case (state)
             S_NS_G: if (tick && tick_count == DUR_NS_G-1) next_state = S_NS_Y;
             S_NS_Y: if (tick && tick_count == DUR_NS_Y-1) next_state = S_EW_G;
@@ -35,8 +29,7 @@ module traffic_light(
             S_EW_Y: if (tick && tick_count == DUR_EW_Y-1) next_state = S_NS_G;
         endcase
     end
-
-    // State register + counter
+    
     always @(posedge clk) begin
         if (rst) begin
             state <= S_NS_G;
@@ -56,9 +49,8 @@ module traffic_light(
         end
     end
 
-    // Moore outputs
     always @* begin
-        // default all red
+    
         ns_g=0; ns_y=0; ns_r=0;
         ew_g=0; ew_y=0; ew_r=0;
         case (state)
@@ -68,5 +60,6 @@ module traffic_light(
             S_EW_Y: begin ew_y=1; ns_r=1; end
         endcase
     end
+
 
 endmodule

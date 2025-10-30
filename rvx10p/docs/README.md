@@ -12,7 +12,7 @@ This repository contains a five-stage pipelined RISC-V core that implements RV32
 - `tb/`
   - `tb_pipe.sv` — self-checking testbench
 - `test/`
-- `encoding.md` - RISCV Instuctions
+- `encoding.md` - RVX10‑P Instruction Encoding
   - `rvx10_pipe.hex` — instructions
 - `docs/`
   - `REPORT.md` — design notes
@@ -22,5 +22,6 @@ This repository contains a five-stage pipelined RISC-V core that implements RV32
 2. Compile:
 3. Place your assembled instruction memory image at `test/rvx10_pipe.hex` and ensure `tb` reads it.
 4. Run:
+
 
 

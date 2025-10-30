@@ -4,20 +4,21 @@ This repository contains a five-stage pipelined RISC-V core that implements RV32
 
 ## Repository layout
 - `src/` — SystemVerilog sources
-  - `riscvpipeline.sv` — top-level
+  - `riscvpipe.sv` — top-level
   - `datapath.sv` — datapath + pipeline regs + memories
   - `alu.sv` — ALU with RVX10 operations
-  - `hazard_unit.sv` — load-use stall detection (optional, can be integrated)
-  - `forwarding_unit.sv` — forwarding mux logic
+  - `hazard_unit.sv` — load-use stall detection
+  - `forward_unit.sv` — forwarding mux logic
 - `tb/`
-  - `tb_pipeline.sv` — self-checking testbench
+  - `tb_pipe.sv` — self-checking testbench
 - `tests/`
-  - `rvx10_pipeline.hex` — instruction memory image (place assembled hex here)
+  - `rvx10_pipeline.hex` — instructions
 - `docs/`
-  - `REPORT.md` — design notes and waveform screenshots (add screenshots)
+  - `REPORT.md` — design notes
   
 ## How to run (iverilog + gtkwave)
 1. Install iverilog and gtkwave (Ubuntu):
 2. Compile:
-3. Place your assembled instruction memory image at `tests/rvx10_pipeline.hex` and ensure `tb` reads it.
+3. Place your assembled instruction memory image at `test/rvx10_pipe.hex` and ensure `tb` reads it.
 4. Run:
+

@@ -61,15 +61,10 @@ module datapath (
             for (i=0;i<32;i++) regfile[i] <= 32'b0;
         end
     end
-
-    // Simple synchronous instruction fetch
     assign instr_addr = pc;
-
-    // IF Stage: update PC
     always_comb begin
         pc_next = pc + 4;
-        // branch update happens when EX says taken; handled below in sequential logic
-    end
+      end
 
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -130,9 +125,7 @@ module datapath (
         rs2_val_r = regfile[id_rs2];
     end
 
-    // Simple control unit for subset + RVX10 custom ALU ops
-    // We keep a compact controller here. For clarity, use task to set signals.
-    task automatic control_unit (
+        task automatic control_unit (
         input  logic [6:0] opcode,
         input  logic [2:0] funct3,
         input  logic [6:0] funct7,
@@ -187,13 +180,10 @@ module datapath (
                     ALUop = 4'b0000;
                 end
                 default: begin
-                    // treat unknown as NOP
                 end
             endcase
         end
     endtask
-
-    // ID stage -> generate control and pipeline ID/EX registers
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             id_rs1_val <= 0;
@@ -205,8 +195,7 @@ module datapath (
             id_ALUSrc <= 0;
             id_ALUop <= 4'b0;
         end else begin
-            // if ID_stall then hold; if ID_flush then clear
-            if (ID_flush) begin
+                if (ID_flush) begin
                 id_rs1_val <= 0;
                 id_rs2_val <= 0;
                 id_RegWrite <= 0;
@@ -223,15 +212,10 @@ module datapath (
             end
         end
     end
-
-    // EX stage: forwarding handled below (for simplicity this datapath contains forwarding_unit)
-    // Create ALU input A and B with forwarding muxes (simple)
     logic [31:0] alu_in1, alu_in2;
-    // default connect from ID/EX pipeline
     assign alu_in1 = id_rs1_val;
     assign alu_in2 = id_ALUSrc ? id_imm : id_rs2_val;
 
-    // ALU module (see src/alu.sv) - instantiate inline for simplicity
     logic [31:0] alu_result;
     alu alu_u (
         .opA (alu_in1),
@@ -243,7 +227,6 @@ module datapath (
         .result(alu_result)
     );
 
-    // EX/MEM pipeline registers
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             ex_alu_out <= 0;
@@ -271,10 +254,9 @@ module datapath (
                 ex_RegWrite <= id_RegWrite;
                 ex_MemRead <= id_MemRead;
                 ex_MemWrite <= id_MemWrite;
-                // branch decisions (very small subset: BEQ)
                 if (id_Branch && (alu_result == 0)) begin
                     ex_branch_taken <= 1;
-                    ex_branch_target <= id_pc + {{20{id_instr[31]}}, id_instr[31:20]}; // crude, please adapt immediate
+                    ex_branch_target <= id_pc + {{20{id_instr[31]}}, id_instr[31:20]}; 
                 end else begin
                     ex_branch_taken <= 0;
                 end
@@ -282,13 +264,10 @@ module datapath (
         end
     end
 
-    // Simple data memory (synchronous)
-    logic [31:0] dmem [0:4095];
+   logic [31:0] dmem [0:4095];
     initial begin
-        // memory zero-initialized; testbench can preload with $readmemh
     end
 
-    // MEM stage: memory access & pipeline to WB
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             mem_read_data <= 0;
@@ -311,13 +290,12 @@ module datapath (
         end
     end
 
-    // WB stage: write-back
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            // nothing
+
         end else begin
             if (mem_RegWrite && (mem_rd != 0)) begin
-                // choose writeback from mem_read_data (for loads) or alu result (for ALU)
+
                 if (ex_MemRead) begin
                     regfile[mem_rd] <= mem_read_data;
                 end else begin
@@ -329,17 +307,15 @@ module datapath (
         end
     end
 
-    // expose control signals (for top-level)
     assign IF_stall_o = IF_stall;
     assign IF_flush_o = IF_flush;
     assign ID_stall_o = ID_stall;
     assign ID_flush_o = ID_flush;
     assign EX_flush_o = EX_flush;
-
-    // initialize counters
     initial begin
         cycle_count = 0;
         instr_retired = 0;
     end
 
 endmodule
+

@@ -11,8 +11,9 @@ This repository contains a five-stage pipelined RISC-V core that implements RV32
   - `forward_unit.sv` — forwarding mux logic
 - `tb/`
   - `tb_pipe.sv` — self-checking testbench
-- `tests/`
-  - `rvx10_pipeline.hex` — instructions
+- `test/`
+- `encoding.md` - RISCV Instuctions
+  - `rvx10_pipe.hex` — instructions
 - `docs/`
   - `REPORT.md` — design notes
   
@@ -21,4 +22,5 @@ This repository contains a five-stage pipelined RISC-V core that implements RV32
 2. Compile:
 3. Place your assembled instruction memory image at `test/rvx10_pipe.hex` and ensure `tb` reads it.
 4. Run:
+
 

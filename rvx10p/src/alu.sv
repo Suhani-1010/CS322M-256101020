@@ -20,26 +20,25 @@ module alu (
     // 100 -> MAX
     // 101 -> MINU
     // 110 -> MAXU
-    // 111 -> ROL (use funct7 LSB to differentiate ROR/ABS)
-    // For ABS and ROR we use funct7 LSB bit as modifier (example)
+    // 111 -> ROL
     logic [31:0] tmp;
     always_comb begin
         result = 32'b0;
         case (ALUop)
-            4'b0010: result = opA + opB; // add / address calc
-            4'b0001: result = opA - opB; // sub / compare
-            4'b1111: begin // R-type: decode by funct3/funct7
-                // Standard R-type ops (simplified)
+            4'b0010: result = opA + opB; 
+            4'b0001: result = opA - opB; 
+            4'b1111: begin 
+            
                 if (funct3 == 3'b000 && funct7 == 7'b0000000) result = opA + opB; // ADD
                 else if (funct3 == 3'b000 && funct7 == 7'b0100000) result = opA - opB; // SUB
                 else begin
-                    // custom RVX10 when funct7 == 0100000
+                    
                     if (funct7 == 7'b0100000) begin
                         case (funct3)
                             3'b000: result = opA & ~opB;           // ANDN
                             3'b001: result = opA | ~opB;           // ORN
                             3'b010: result = ~(opA ^ opB);         // XNOR
-                            3'b011: // MIN signed
+                            3'b011: 
                                 result = ($signed(opA) < $signed(opB)) ? opA : opB;
                             3'b100: // MAX signed
                                 result = ($signed(opA) > $signed(opB)) ? opA : opB;
@@ -47,10 +46,9 @@ module alu (
                                 result = (opA < opB) ? opA : opB;
                             3'b110: // MAXU unsigned
                                 result = (opA > opB) ? opA : opB;
-                            3'b111: begin // ROL / ROR / ABS (use opB[4:0] as shift amount)
-                                // If bit0 of funct7 == 1 -> ROR else ROL; if opB==0xFFFF then ABS
+                            3'b111: begin 
                                 if (opB == 32'hFFFF_FFFF) begin
-                                    // ABS (example sentinel)
+                    
                                     if ($signed(opA) < 0) result = -$signed(opA); else result = opA;
                                 end else begin
                                     int sh = opB[4:0];
@@ -72,3 +70,4 @@ module alu (
         endcase
     end
 endmodule
+

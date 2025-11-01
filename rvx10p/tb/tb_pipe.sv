@@ -1,5 +1,5 @@
 // tb/tb_pipeline.sv
-`timescale 1ns/1ps
+`timescale 1ns/1ns
 module tb_pipeline;
     logic clk;
     logic rst_n;
@@ -41,4 +41,5 @@ module tb_pipeline;
         end
     end
 endmodule
+
 
